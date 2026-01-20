@@ -47,11 +47,11 @@ BASEMAIL=	/usr/libexec/sendmail/sendmail
 MILTER_SOVER?=	6
 
 OPTIONS_DEFINE?=	SHMEM SEM LA NIS IPV6 TLS DANE SASL SASLAUTHD LDAP \
-			BDB GDBM SOCKETMAP CYRUSLOOKUP BLACKLISTD SMTPUTF8 \
+			BDB GDBM SOCKETMAP CYRUSLOOKUP BLOCKLISTD SMTPUTF8 \
 			PICKY_HELO_CHECK MILTER MTA_STS \
 			TLS_CERT_CHAIN DOCS
 OPTIONS_DEFAULT?=	SHMEM SEM LA NIS TLS DANE SASL SASLAUTHD BDB1 \
-			BLACKLISTD PICKY_HELO_CHECK MILTER
+			BLOCKLISTD PICKY_HELO_CHECK MILTER
 NO_OPTIONS_SORT=yes
 SHMEM_DESC=		System V shared memory support
 LA_DESC=		load averages support
@@ -61,7 +61,7 @@ SASLAUTHD_DESC=		SASLAUTHD support
 BDB_DESC=		Berkeley DB version 4+ support
 GDBM_DESC=		GNU dbm library support (option COMPAT needed)
 SOCKETMAP_DESC=		Enable socketmap feature
-BLACKLISTD_DESC=	Enable blacklistd support
+BLOCKLISTD_DESC=	Enable blocklistd support
 CYRUSLOOKUP_DESC=	Enable cyruslookup feature
 PICKY_HELO_CHECK_DESC=	Enable picky HELO check
 MILTER_DESC=		Enable milter support
@@ -84,6 +84,12 @@ MTA_STS_IMPLIES=	SOCKETMAP TLS
 TLS_CERT_CHAIN_IMPLIES=	TLS
 
 .include <bsd.port.options.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
+BLOCKLISTD_EXTRA_PATCHES=	${FILESDIR}/blacklistd-patches
+.else
+BLOCKLISTD_EXTRA_PATCHES=	${FILESDIR}/blocklistd-patches
+.endif
 
 .if ${PORT_OPTIONS:MSHMEM} && !defined(BUILDING_INDEX)
 IPCCHECK!=	ipcrm -q 0 2>&1 || true
@@ -137,8 +143,12 @@ SITE+=	${FILESDIR}/site.config.m4.sasl2
 .if ${PORT_OPTIONS:MLDAP}
 SITE+=	${FILESDIR}/site.config.m4.ldap
 .endif
-.if ${PORT_OPTIONS:MBLACKLISTD}
+.if ${PORT_OPTIONS:MBLOCKLISTD}
+. if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
 SITE+=	${FILESDIR}/site.config.m4.blacklistd
+. else
+SITE+=	${FILESDIR}/site.config.m4.blocklistd
+. endif
 .endif
 .if ${PORT_OPTIONS:MSMTPUTF8}
 SITE+=	${FILESDIR}/site.config.m4.smtputf8
