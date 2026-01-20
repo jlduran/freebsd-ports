@@ -1,0 +1,11 @@
+--- doc/pod/hacking.pod.orig	2026-03-28 02:23:45 UTC
++++ doc/pod/hacking.pod
+@@ -719,7 +719,7 @@ Ideally, ensure INN builds fine with the latest versio
+ and B<--enable-reduced-depends>).
+ 
+ Ideally, ensure INN builds fine with the latest versions of external libraries
+-it has support for (S<Berkeley DB>, blacklistd, Cyrus SASL, libcanlock,
++it has support for (S<Berkeley DB>, blocklistd, Cyrus SASL, libcanlock,
+ LibreSSL, MIT S<Kerberos v5>, OpenSSL, Perl, Python, SQLite, zlib).
+ 
+ =item 4.

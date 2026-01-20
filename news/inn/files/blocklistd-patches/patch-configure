@@ -1,0 +1,425 @@
+--- configure.orig	2025-05-09 13:53:41 UTC
++++ configure
+@@ -693,9 +693,9 @@ CANLOCK_CPPFLAGS
+ CANLOCK_LIBS
+ CANLOCK_LDFLAGS
+ CANLOCK_CPPFLAGS
+-BLACKLIST_LIBS
+-BLACKLIST_LDFLAGS
+-BLACKLIST_CPPFLAGS
++BLOCKLIST_LIBS
++BLOCKLIST_LDFLAGS
++BLOCKLIST_CPPFLAGS
+ BDB_LIBS
+ BDB_LDFLAGS
+ BDB_CPPFLAGS
+@@ -889,9 +889,9 @@ with_bdb_lib
+ with_bdb
+ with_bdb_include
+ with_bdb_lib
+-with_blacklist
+-with_blacklist_include
+-with_blacklist_lib
++with_blocklist
++with_blocklist_include
++with_blocklist_lib
+ with_canlock
+ with_canlock_include
+ with_canlock_lib
+@@ -1622,11 +1622,11 @@ Optional Packages:
+   --with-bdb[=DIR]        Location of Berkeley DB headers and libraries
+   --with-bdb-include=DIR  Location of Berkeley DB headers
+   --with-bdb-lib=DIR      Location of Berkeley DB libraries
+-  --with-blacklist[=DIR]  Location of blacklist headers and libraries
+-  --with-blacklist-include=DIR
+-                          Location of blacklist headers
+-  --with-blacklist-lib=DIR
+-                          Location of blacklist libraries
++  --with-blocklist[=DIR]  Location of blocklist headers and libraries
++  --with-blocklist-include=DIR
++                          Location of blocklist headers
++  --with-blocklist-lib=DIR
++                          Location of blocklist libraries
+   --with-canlock[=DIR]    Location of canlock headers and libraries
+   --with-canlock-include=DIR
+                           Location of canlock headers
+@@ -19170,272 +19170,272 @@ fi
+ printf "%s\n" "#define HAVE_BDB 1" >>confdefs.h
+ 
+ fi
+-inn_BLACKLIST_root=
+- inn_BLACKLIST_libdir=
+- inn_BLACKLIST_includedir=
+- inn_use_BLACKLIST=
+- BLACKLIST_CPPFLAGS=
+- BLACKLIST_LDFLAGS=
+- BLACKLIST_LIBS=
++inn_BLOCKLIST_root=
++ inn_BLOCKLIST_libdir=
++ inn_BLOCKLIST_includedir=
++ inn_use_BLOCKLIST=
++ BLOCKLIST_CPPFLAGS=
++ BLOCKLIST_LDFLAGS=
++ BLOCKLIST_LIBS=
+ 
+ 
+ 
+ 
+-# Check whether --with-blacklist was given.
+-if test ${with_blacklist+y}
++# Check whether --with-blocklist was given.
++if test ${with_blocklist+y}
+ then :
+-  withval=$with_blacklist; if test x"$withval" = xno
++  withval=$with_blocklist; if test x"$withval" = xno
+ then :
+-  inn_use_BLACKLIST=false
++  inn_use_BLOCKLIST=false
+ else $as_nop
+   if test x"$withval" != xyes
+ then :
+-  inn_BLACKLIST_root="$withval"
++  inn_BLOCKLIST_root="$withval"
+ fi
+-         inn_use_BLACKLIST=true
++         inn_use_BLOCKLIST=true
+ fi
+ fi
+ 
+ 
+-# Check whether --with-blacklist-include was given.
+-if test ${with_blacklist_include+y}
++# Check whether --with-blocklist-include was given.
++if test ${with_blocklist_include+y}
+ then :
+-  withval=$with_blacklist_include; if test x"$withval" != xyes && test x"$withval" != xno
++  withval=$with_blocklist_include; if test x"$withval" != xyes && test x"$withval" != xno
+ then :
+-  inn_BLACKLIST_includedir="$withval"
++  inn_BLOCKLIST_includedir="$withval"
+ fi
+ fi
+ 
+ 
+-# Check whether --with-blacklist-lib was given.
+-if test ${with_blacklist_lib+y}
++# Check whether --with-blocklist-lib was given.
++if test ${with_blocklist_lib+y}
+ then :
+-  withval=$with_blacklist_lib; if test x"$withval" != xyes && test x"$withval" != xno
++  withval=$with_blocklist_lib; if test x"$withval" != xyes && test x"$withval" != xno
+ then :
+-  inn_BLACKLIST_libdir="$withval"
++  inn_BLOCKLIST_libdir="$withval"
+ fi
+ fi
+ 
+- if test x"$inn_use_BLACKLIST" != xfalse
++ if test x"$inn_use_BLOCKLIST" != xfalse
+ then :
+-  if test x"$inn_use_BLACKLIST" = xtrue
++  if test x"$inn_use_BLOCKLIST" = xtrue
+ then :
+-  if test x"$inn_BLACKLIST_libdir" != x
++  if test x"$inn_BLOCKLIST_libdir" != x
+ then :
+-  BLACKLIST_LDFLAGS="-L$inn_BLACKLIST_libdir"
++  BLOCKLIST_LDFLAGS="-L$inn_BLOCKLIST_libdir"
+ else $as_nop
+-  if test x"$inn_BLACKLIST_root" != x
++  if test x"$inn_BLOCKLIST_root" != x
+ then :
+ 
+- if test -d "${inn_BLACKLIST_root}/$inn_lib_arch_name"
++ if test -d "${inn_BLOCKLIST_root}/$inn_lib_arch_name"
+ then :
+   if test x"" = x
+ then :
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/${inn_lib_arch_name}"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/${inn_lib_arch_name}"
+ else $as_nop
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/${inn_lib_arch_name}/"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/${inn_lib_arch_name}/"
+ fi
+ else $as_nop
+   if test x"" = x
+ then :
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/lib"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/lib"
+ else $as_nop
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/lib/"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/lib/"
+ fi
+ fi
+- BLACKLIST_LDFLAGS=`printf "%s\n" "$BLACKLIST_LDFLAGS" | sed -e 's/^ *//'`
++ BLOCKLIST_LDFLAGS=`printf "%s\n" "$BLOCKLIST_LDFLAGS" | sed -e 's/^ *//'`
+ fi
+ fi
+- if test x"$inn_BLACKLIST_includedir" != x
++ if test x"$inn_BLOCKLIST_includedir" != x
+ then :
+-  BLACKLIST_CPPFLAGS="-isystem $inn_BLACKLIST_includedir"
++  BLOCKLIST_CPPFLAGS="-isystem $inn_BLOCKLIST_includedir"
+ else $as_nop
+-  if test x"$inn_BLACKLIST_root" != x
++  if test x"$inn_BLOCKLIST_root" != x
+ then :
+-  if test x"$inn_BLACKLIST_root" != x/usr
++  if test x"$inn_BLOCKLIST_root" != x/usr
+ then :
+-  BLACKLIST_CPPFLAGS="-isystem ${inn_BLACKLIST_root}/include"
++  BLOCKLIST_CPPFLAGS="-isystem ${inn_BLOCKLIST_root}/include"
+ fi
+ fi
+ fi
+- inn_BLACKLIST_save_CPPFLAGS="$CPPFLAGS"
+- inn_BLACKLIST_save_LDFLAGS="$LDFLAGS"
+- inn_BLACKLIST_save_LIBS="$LIBS"
+- CPPFLAGS="$BLACKLIST_CPPFLAGS $CPPFLAGS"
+- LDFLAGS="$BLACKLIST_LDFLAGS $LDFLAGS"
+- LIBS="$BLACKLIST_LIBS $LIBS"
+- ac_fn_c_check_header_compile "$LINENO" "blacklist.h" "ac_cv_header_blacklist_h" "$ac_includes_default"
+-if test "x$ac_cv_header_blacklist_h" = xyes
++ inn_BLOCKLIST_save_CPPFLAGS="$CPPFLAGS"
++ inn_BLOCKLIST_save_LDFLAGS="$LDFLAGS"
++ inn_BLOCKLIST_save_LIBS="$LIBS"
++ CPPFLAGS="$BLOCKLIST_CPPFLAGS $CPPFLAGS"
++ LDFLAGS="$BLOCKLIST_LDFLAGS $LDFLAGS"
++ LIBS="$BLOCKLIST_LIBS $LIBS"
++ ac_fn_c_check_header_compile "$LINENO" "blocklist.h" "ac_cv_header_blocklist_h" "$ac_includes_default"
++if test "x$ac_cv_header_blocklist_h" = xyes
+ then :
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for blacklist_r in -lblacklist" >&5
+-printf %s "checking for blacklist_r in -lblacklist... " >&6; }
+-if test ${ac_cv_lib_blacklist_blacklist_r+y}
++  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for blocklist_r in -lblocklist" >&5
++printf %s "checking for blocklist_r in -lblocklist... " >&6; }
++if test ${ac_cv_lib_blocklist_blocklist_r+y}
+ then :
+   printf %s "(cached) " >&6
+ else $as_nop
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lblacklist  $LIBS"
++LIBS="-lblocklist  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
+-char blacklist_r ();
++char blocklist_r ();
+ int
+ main (void)
+ {
+-return blacklist_r ();
++return blocklist_r ();
+   ;
+   return 0;
+ }
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"
+ then :
+-  ac_cv_lib_blacklist_blacklist_r=yes
++  ac_cv_lib_blocklist_blocklist_r=yes
+ else $as_nop
+-  ac_cv_lib_blacklist_blacklist_r=no
++  ac_cv_lib_blocklist_blocklist_r=no
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.beam \
+     conftest$ac_exeext conftest.$ac_ext
+ LIBS=$ac_check_lib_save_LIBS
+ fi
+-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blacklist_blacklist_r" >&5
+-printf "%s\n" "$ac_cv_lib_blacklist_blacklist_r" >&6; }
+-if test "x$ac_cv_lib_blacklist_blacklist_r" = xyes
++{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blocklist_blocklist_r" >&5
++printf "%s\n" "$ac_cv_lib_blocklist_blocklist_r" >&6; }
++if test "x$ac_cv_lib_blocklist_blocklist_r" = xyes
+ then :
+-  BLACKLIST_LIBS="-lblacklist"
++  BLOCKLIST_LIBS="-lblocklist"
+ else $as_nop
+   if test x"true" = xtrue
+ then :
+-  as_fn_error $? "cannot find usable blacklist library" "$LINENO" 5
++  as_fn_error $? "cannot find usable blocklist library" "$LINENO" 5
+ fi
+ fi
+ 
+ else $as_nop
+   if test x"true" = xtrue
+ then :
+-  as_fn_error $? "cannot find usable blacklist header" "$LINENO" 5
++  as_fn_error $? "cannot find usable blocklist header" "$LINENO" 5
+ fi
+ fi
+ 
+- CPPFLAGS="$inn_BLACKLIST_save_CPPFLAGS"
+- LDFLAGS="$inn_BLACKLIST_save_LDFLAGS"
+- LIBS="$inn_BLACKLIST_save_LIBS"
++ CPPFLAGS="$inn_BLOCKLIST_save_CPPFLAGS"
++ LDFLAGS="$inn_BLOCKLIST_save_LDFLAGS"
++ LIBS="$inn_BLOCKLIST_save_LIBS"
+ else $as_nop
+-  if test x"$inn_BLACKLIST_libdir" != x
++  if test x"$inn_BLOCKLIST_libdir" != x
+ then :
+-  BLACKLIST_LDFLAGS="-L$inn_BLACKLIST_libdir"
++  BLOCKLIST_LDFLAGS="-L$inn_BLOCKLIST_libdir"
+ else $as_nop
+-  if test x"$inn_BLACKLIST_root" != x
++  if test x"$inn_BLOCKLIST_root" != x
+ then :
+ 
+- if test -d "${inn_BLACKLIST_root}/$inn_lib_arch_name"
++ if test -d "${inn_BLOCKLIST_root}/$inn_lib_arch_name"
+ then :
+   if test x"" = x
+ then :
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/${inn_lib_arch_name}"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/${inn_lib_arch_name}"
+ else $as_nop
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/${inn_lib_arch_name}/"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/${inn_lib_arch_name}/"
+ fi
+ else $as_nop
+   if test x"" = x
+ then :
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/lib"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/lib"
+ else $as_nop
+-  BLACKLIST_LDFLAGS="$BLACKLIST_LDFLAGS -L${inn_BLACKLIST_root}/lib/"
++  BLOCKLIST_LDFLAGS="$BLOCKLIST_LDFLAGS -L${inn_BLOCKLIST_root}/lib/"
+ fi
+ fi
+- BLACKLIST_LDFLAGS=`printf "%s\n" "$BLACKLIST_LDFLAGS" | sed -e 's/^ *//'`
++ BLOCKLIST_LDFLAGS=`printf "%s\n" "$BLOCKLIST_LDFLAGS" | sed -e 's/^ *//'`
+ fi
+ fi
+- if test x"$inn_BLACKLIST_includedir" != x
++ if test x"$inn_BLOCKLIST_includedir" != x
+ then :
+-  BLACKLIST_CPPFLAGS="-isystem $inn_BLACKLIST_includedir"
++  BLOCKLIST_CPPFLAGS="-isystem $inn_BLOCKLIST_includedir"
+ else $as_nop
+-  if test x"$inn_BLACKLIST_root" != x
++  if test x"$inn_BLOCKLIST_root" != x
+ then :
+-  if test x"$inn_BLACKLIST_root" != x/usr
++  if test x"$inn_BLOCKLIST_root" != x/usr
+ then :
+-  BLACKLIST_CPPFLAGS="-isystem ${inn_BLACKLIST_root}/include"
++  BLOCKLIST_CPPFLAGS="-isystem ${inn_BLOCKLIST_root}/include"
+ fi
+ fi
+ fi
+- inn_BLACKLIST_save_CPPFLAGS="$CPPFLAGS"
+- inn_BLACKLIST_save_LDFLAGS="$LDFLAGS"
+- inn_BLACKLIST_save_LIBS="$LIBS"
+- CPPFLAGS="$BLACKLIST_CPPFLAGS $CPPFLAGS"
+- LDFLAGS="$BLACKLIST_LDFLAGS $LDFLAGS"
+- LIBS="$BLACKLIST_LIBS $LIBS"
+- ac_fn_c_check_header_compile "$LINENO" "blacklist.h" "ac_cv_header_blacklist_h" "$ac_includes_default"
+-if test "x$ac_cv_header_blacklist_h" = xyes
++ inn_BLOCKLIST_save_CPPFLAGS="$CPPFLAGS"
++ inn_BLOCKLIST_save_LDFLAGS="$LDFLAGS"
++ inn_BLOCKLIST_save_LIBS="$LIBS"
++ CPPFLAGS="$BLOCKLIST_CPPFLAGS $CPPFLAGS"
++ LDFLAGS="$BLOCKLIST_LDFLAGS $LDFLAGS"
++ LIBS="$BLOCKLIST_LIBS $LIBS"
++ ac_fn_c_check_header_compile "$LINENO" "blocklist.h" "ac_cv_header_blocklist_h" "$ac_includes_default"
++if test "x$ac_cv_header_blocklist_h" = xyes
+ then :
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for blacklist_r in -lblacklist" >&5
+-printf %s "checking for blacklist_r in -lblacklist... " >&6; }
+-if test ${ac_cv_lib_blacklist_blacklist_r+y}
++  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for blocklist_r in -lblocklist" >&5
++printf %s "checking for blocklist_r in -lblocklist... " >&6; }
++if test ${ac_cv_lib_blocklist_blocklist_r+y}
+ then :
+   printf %s "(cached) " >&6
+ else $as_nop
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lblacklist  $LIBS"
++LIBS="-lblocklist  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
+-char blacklist_r ();
++char blocklist_r ();
+ int
+ main (void)
+ {
+-return blacklist_r ();
++return blocklist_r ();
+   ;
+   return 0;
+ }
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"
+ then :
+-  ac_cv_lib_blacklist_blacklist_r=yes
++  ac_cv_lib_blocklist_blocklist_r=yes
+ else $as_nop
+-  ac_cv_lib_blacklist_blacklist_r=no
++  ac_cv_lib_blocklist_blocklist_r=no
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.beam \
+     conftest$ac_exeext conftest.$ac_ext
+ LIBS=$ac_check_lib_save_LIBS
+ fi
+-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blacklist_blacklist_r" >&5
+-printf "%s\n" "$ac_cv_lib_blacklist_blacklist_r" >&6; }
+-if test "x$ac_cv_lib_blacklist_blacklist_r" = xyes
++{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_blocklist_blocklist_r" >&5
++printf "%s\n" "$ac_cv_lib_blocklist_blocklist_r" >&6; }
++if test "x$ac_cv_lib_blocklist_blocklist_r" = xyes
+ then :
+-  BLACKLIST_LIBS="-lblacklist"
++  BLOCKLIST_LIBS="-lblocklist"
+ else $as_nop
+   if test x"false" = xtrue
+ then :
+-  as_fn_error $? "cannot find usable blacklist library" "$LINENO" 5
++  as_fn_error $? "cannot find usable blocklist library" "$LINENO" 5
+ fi
+ fi
+ 
+ else $as_nop
+   if test x"false" = xtrue
+ then :
+-  as_fn_error $? "cannot find usable blacklist header" "$LINENO" 5
++  as_fn_error $? "cannot find usable blocklist header" "$LINENO" 5
+ fi
+ fi
+ 
+- CPPFLAGS="$inn_BLACKLIST_save_CPPFLAGS"
+- LDFLAGS="$inn_BLACKLIST_save_LDFLAGS"
+- LIBS="$inn_BLACKLIST_save_LIBS"
++ CPPFLAGS="$inn_BLOCKLIST_save_CPPFLAGS"
++ LDFLAGS="$inn_BLOCKLIST_save_LDFLAGS"
++ LIBS="$inn_BLOCKLIST_save_LIBS"
+ fi
+ fi
+- if test x"$BLACKLIST_LIBS" = x
++ if test x"$BLOCKLIST_LIBS" = x
+ then :
+-  BLACKLIST_CPPFLAGS=
+- BLACKLIST_LDFLAGS=
+- BLACKLIST_LIBS=
++  BLOCKLIST_CPPFLAGS=
++ BLOCKLIST_LDFLAGS=
++ BLOCKLIST_LIBS=
+ else $as_nop
+-  inn_use_BLACKLIST=true
++  inn_use_BLOCKLIST=true
+ 
+-printf "%s\n" "#define HAVE_BLACKLIST 1" >>confdefs.h
++printf "%s\n" "#define HAVE_BLOCKLIST 1" >>confdefs.h
+ 
+ fi
+ inn_CANLOCK_root=

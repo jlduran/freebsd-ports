@@ -1,0 +1,11 @@
+--- ci/test.orig	2026-03-28 02:19:52 UTC
++++ ci/test
+@@ -32,7 +32,7 @@ make distclean
+ # Test --enable-keywords and disabling optional dependencies.
+ make distclean
+ ./configure CC="$COMPILER" --enable-keywords --without-bdb \
+-    --without-blacklist --without-canlock --without-krb5 --without-openssl \
++    --without-blocklist --without-canlock --without-krb5 --without-openssl \
+     --without-sasl --without-sqlite3 --without-zlib
+ make warnings
+ make test

@@ -1,0 +1,13 @@
+--- include/config.h.in.orig	2026-03-28 02:43:20 UTC
++++ include/config.h.in
+@@ -46,8 +46,8 @@
+ /* Define if the Berkeley DB ndbm compatibility layer is available. */
+ #undef HAVE_BDB_NDBM
+ 
+-/* Define if libblacklist is available. */
+-#undef HAVE_BLACKLIST
++/* Define if libblocklist is available. */
++#undef HAVE_BLOCKLIST
+ 
+ /* Define if your IN6_ARE_ADDR_EQUAL macro is broken. */
+ #undef HAVE_BROKEN_IN6_ARE_ADDR_EQUAL
