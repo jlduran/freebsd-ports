@@ -42,8 +42,8 @@ gssapi_PKGNAMESUFFIX=		-portable-gssapi
 
 OPTIONS_DEFINE=		DOCS PAM TCP_WRAPPERS LIBEDIT BSM \
 			HPN KERB_GSSAPI \
-			LDNS NONECIPHER XMSS FIDO_U2F BLACKLISTD
-OPTIONS_DEFAULT=	BLACKLISTD LIBEDIT PAM TCP_WRAPPERS LDNS FIDO_U2F
+			LDNS NONECIPHER XMSS FIDO_U2F BLOCKLISTD
+OPTIONS_DEFAULT=	BLOCKLISTD LIBEDIT PAM TCP_WRAPPERS LDNS FIDO_U2F
 .if ${FLAVOR:U} == hpn
 OPTIONS_DEFAULT+=	HPN NONECIPHER
 .endif
@@ -63,7 +63,7 @@ MIT_DESC=		MIT Kerberos (security/krb5)
 NONECIPHER_DESC=	NONE Cipher support
 XMSS_DESC=		XMSS key support (experimental)
 FIDO_U2F_DESC=		FIDO/U2F support (security/libfido2)
-BLACKLISTD_DESC=	FreeBSD blacklistd(8) support
+BLOCKLISTD_DESC=	FreeBSD blocklistd(8) support
 
 OPTIONS_SUB=		yes
 
@@ -91,19 +91,27 @@ FIDO_U2F_LIB_DEPENDS=	libfido2.so:security/libfido2
 FIDO_U2F_CONFIGURE_ON=	--with-security-key-builtin
 FIDO_U2F_CONFIGURE_OFF=	--disable-security-key
 
-BLACKLISTD_EXTRA_PATCHES=	${FILESDIR}/extra-patch-blacklistd
-
 ETCDIR?=		${PREFIX}/etc/ssh
 
 .include <bsd.port.pre.mk>
 
 PATCH_SITES+=	http://mirror.shatow.net/freebsd/${PORTNAME}/:DEFAULT,hpn,gsskex
 
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
+BLOCKLISTD_EXTRA_PATCHES=	${FILESDIR}/extra-patch-blacklistd
+.else
+BLOCKLISTD_EXTRA_PATCHES=	${FILESDIR}/extra-patch-blocklistd
+.endif
+
 # Must add this patch before HPN due to conflicts
-.if !${PORT_OPTIONS:MBLACKLISTD}
+.if !${PORT_OPTIONS:MBLOCKLISTD}
 .  if ${PORT_OPTIONS:MHPN} || ${PORT_OPTIONS:MNONECIPHER}
 # Needed glue for applying HPN patch without conflict
+.    if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-no-blacklistd-hpn-glue
+.    else
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-no-blocklistd-hpn-glue
+.    endif
 .  endif
 .endif
 
@@ -128,8 +136,12 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gssapi-kexgssc.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-gssapi-kexgsss.c
 .endif
 
-.if ${PORT_OPTIONS:MBLACKLISTD}
+.if ${PORT_OPTIONS:MBLOCKLISTD}
+.  if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
 CONFIGURE_LIBS+=	-lblacklist
+.  else
+CONFIGURE_LIBS+=	-lblocklist
+.  endif
 .endif
 
 # https://www.psc.edu/hpn-ssh https://github.com/rapier1/openssh-portable/tree/hpn-openssl1.1-7_7_P1
@@ -220,8 +232,12 @@ post-patch:
 post-configure-XMSS-on:
 	@${ECHO_CMD} "#define WITH_XMSS 1" >> ${WRKSRC}/config.h
 
-post-configure-BLACKLISTD-on:
+post-configure-BLOCKLISTD-on:
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1500000
 	@${ECHO_CMD} "#define USE_BLACKLIST 1" >> ${WRKSRC}/config.h
+.else
+	@${ECHO_CMD} "#define USE_BLOCKLIST 1" >> ${WRKSRC}/config.h
+.endif
 
 post-install:
 	${MV} ${STAGEDIR}${ETCDIR}/moduli \
