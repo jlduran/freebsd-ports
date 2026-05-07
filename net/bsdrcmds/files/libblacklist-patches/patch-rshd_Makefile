@@ -1,0 +1,15 @@
+--- rshd/Makefile.orig	2026-05-07 18:28:12 UTC
++++ rshd/Makefile
+@@ -14,9 +14,9 @@ LDADD=	-lutil -lpam
+ 
+ LDADD=	-lutil -lpam
+ 
+-.ifdef USE_LIBBLOCKLIST
+-CFLAGS+=	-DUSE_BLOCKLIST
+-LDADD+=		-lblocklist
++.ifdef USE_LIBBLACKLIST
++CFLAGS+=	-DUSE_BLACKLIST
++LDADD+=		-lblacklist
+ .endif
+ 
+ .include <bsd.prog.mk>
